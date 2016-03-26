@@ -54,8 +54,10 @@ public class ListItemActivity extends Activity implements IOnServerResponse{
             Measuredwidth = d.getWidth();
             Measuredheight = d.getHeight();
         }
+
         ServerHandler handler=new ServerHandler(this);
         handler.getListProducts(2);
+
         lv = (ListView) findViewById(R.id.listview);
         adapter = new ListviewAdapter(getApplicationContext(), itemInfo,
                 Measuredwidth, Measuredheight);
@@ -76,12 +78,7 @@ public class ListItemActivity extends Activity implements IOnServerResponse{
 
     @Override
     public void OnGetListProductsRes(ArrayList<Product> lstProds) {
-        Product item=new Product();
-        item.setProductName("Sach tv");
-        item.setDescription("hay hay");
-        item.setPrice("1000");
-        item.setProductPicture("http://166.62.93.250/HuyAPI/Picture/SGK_tieng_viet_1.jpg");
-        itemInfo.add(item);
+        itemInfo.addAll(lstProds);
         adapter.notifyDataSetChanged();
     }
 
