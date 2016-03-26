@@ -15,17 +15,25 @@ import com.google.gson.JsonParser;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.List;
 
 import cz.msebera.android.httpclient.HttpResponse;
+import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
+import cz.msebera.android.httpclient.entity.ContentType;
 import cz.msebera.android.httpclient.entity.StringEntity;
+import cz.msebera.android.httpclient.entity.mime.MIME;
+import cz.msebera.android.httpclient.entity.mime.MultipartEntityBuilder;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
+import cz.msebera.android.httpclient.message.BasicNameValuePair;
+import cz.msebera.android.httpclient.protocol.HTTP;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
 interface IOnServerResponse{
@@ -54,26 +62,12 @@ public class ServerHandler {
     private HttpClient httpClient;
     private HttpPost httpPost;
     private HttpGet httpGet;
-    private String result;
-
 
 
     public ServerHandler(IOnServerResponse iOnServerResponse) {
         httpClient = new DefaultHttpClient();
         this.iOnServerResponse = iOnServerResponse;
     }
-
-    /*public static String convertInputStreamToString(InputStream inputStream) throws IOException{
-        BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
-        String line = "";
-        String result = "";
-        while((line = bufferedReader.readLine()) != null)
-            result += line;
-
-        inputStream.close();
-        return result;
-
-    }*/
 
 
     private void initHttpPost(JSONObject jsonObject) throws UnsupportedEncodingException {
@@ -226,6 +220,29 @@ public class ServerHandler {
         }
     }
 
+    public void addProduct(int categoryID, int userID, String productName, String description, String unit, int quantity, File f) {
+
+        httpClient=new DefaultHttpClient();
+        httpPost = new HttpPost(Config.ServerDomain+Config.AddNewProduct);
+        httpPost.addHeader("Accept", "application/json");
+        httpPost.setHeader(HTTP.CONTENT_TYPE, "application/x-www-form-urlencoded;charset=UTF-8");
+
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.setCharset(MIME.UTF8_CHARSET);
+
+        builder.addTextBody("product_name", productName, ContentType.create("text/plain", MIME.UTF8_CHARSET));
+        builder.addTextBody("category_id", String.valueOf(categoryID), ContentType.create("text/plain", MIME.UTF8_CHARSET));
+        builder.addTextBody("user_id", String.valueOf(userID), ContentType.create("text/plain", MIME.UTF8_CHARSET));
+        builder.addTextBody("description", description, ContentType.create("text/plain", MIME.UTF8_CHARSET));
+        builder.addTextBody("unit", unit, ContentType.create("text/plain", MIME.UTF8_CHARSET));
+        builder.addTextBody("quantity", String.valueOf(quantity) , ContentType.create("text/plain", MIME.UTF8_CHARSET));
+        builder.addBinaryBody("image_0", f, ContentType.MULTIPART_FORM_DATA, f.getName());
+
+        httpPost.setEntity(builder.build());
+
+        new HttpAsyncTask().execute(ADD_PRODUCT);
+
+    }
 
     private class HttpAsyncTask extends AsyncTask<String, Void, String> {
         String url0 ;
@@ -255,6 +272,11 @@ public class ServerHandler {
                     case PRODUCT_DETAIL:
                         parseProductRes(EntityUtils.toString(httpResponse.getEntity()));
                         break;
+
+                    case ADD_PRODUCT:
+                        parseAddProductRes(EntityUtils.toString(httpResponse.getEntity()));
+                        break;
+
                 }
             } catch (IOException e) {
                 e.printStackTrace();
@@ -287,11 +309,15 @@ public class ServerHandler {
                     case PRODUCT_DETAIL:
                         httpResponse = httpClient.execute(httpGet);
                         break;
+
+                    case ADD_PRODUCT:
+                        httpResponse = httpClient.execute(httpPost);
+                        break;
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return result;
+            return null;
         }
 
 
@@ -307,6 +333,18 @@ public class ServerHandler {
             }
         }
 
+        private void parseAddProductRes(String result) {
+            try {
+                JsonObject obj = new JsonParser().parse(result).getAsJsonObject();
+                //User user = new User();
+                //user.setUserID(obj.get("data").getAsJsonObject().get("user_id").getAsInt());
+                Product product = new Product();
+                product.setProductID(obj.get("status").getAsInt());
+                iOnServerResponse.OnAddProduct(product);
+            } catch (Exception e) {
+                Log.e("PARSING", e.getMessage());
+            }
+        }
 
         private void parseRegisterRes(String result){
             try {

@@ -11,7 +11,7 @@ public class Config {
     public static String Register = "user/register";
     public static String ListProduct = "product/GetListProduct";
     public static String ProductDetail = "product/detail";
-    public static String AddNewProduct = "";
+    public static String AddNewProduct = "product/add";
     public static String UserDetail = "";
     public static String ServerDomain = ServerIP + API;
 }
