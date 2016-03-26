@@ -17,6 +17,10 @@ public class Product {
         this.isFinished = isFinished;
     }
 
+    public Product() {
+
+    }
+
     int productID;
     String productName;
     String productPicture;
@@ -25,6 +29,26 @@ public class Product {
     String description;
     int quantity;
     String unit;
+    String price = "free";
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    String address;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     boolean isFinished;
 
 

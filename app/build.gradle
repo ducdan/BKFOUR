@@ -26,4 +26,6 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.google.code.gson:gson:2.4'
     compile files('universal-image-loader-1.9.5.jar')
+    compile "cz.msebera.android:httpclient:4.4.1.1"
+
 }
