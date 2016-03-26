@@ -1,5 +1,9 @@
 package com.example.vinh.bkfour.Model;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONObject;
+
 /**
  * Created by VINH on 3/26/2016.
  */
@@ -127,5 +131,21 @@ public class User {
 
     public void setLatitude(float latitude) {
         this.latitude = latitude;
+    }
+
+    public static User convertFromJsonObject(JsonObject jsonObject) {
+        User user = new User();
+        user.setUserID(jsonObject.get("user_id").getAsInt());
+        user.setUserName(jsonObject.get("user_name").getAsString());
+        user.setAvatar(jsonObject.get("avatar").getAsString());
+        user.setEmail(jsonObject.get("email").getAsString());
+        user.setAddress(jsonObject.get("address").getAsString());
+        user.setFirstName(jsonObject.get("first_name").getAsString());
+        user.setLastName(jsonObject.get("last_name").getAsString());
+        user.setPhoneNumber(jsonObject.get("telephone").getAsString());
+        user.setLongitude(jsonObject.get("long_location").getAsFloat());
+        user.setLatitude(jsonObject.get("lat_location").getAsFloat());
+
+        return user;
     }
 }

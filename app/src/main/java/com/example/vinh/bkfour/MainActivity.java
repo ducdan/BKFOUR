@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.vinh.bkfour.Model.Product;
 import com.example.vinh.bkfour.Model.User;
 import com.example.vinh.bkfour.Utility.Config;
 import com.google.gson.Gson;
@@ -29,7 +30,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements IOnServerResponse {
 
     EditText editText;
 
@@ -38,12 +39,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        editText = (EditText) findViewById(R.id.editText);
+        //editText = (EditText) findViewById(R.id.editText);
 
     }
 
 
+    @Override
+    public void OnPostLoginRes(User user) {
 
+    }
 
+    @Override
+    public void OnPostRegisterRes(User user) {
 
+    }
+
+    @Override
+    public void OnGetListProductsRes(ArrayList<Product> lstProds) {
+
+    }
+
+    @Override
+    public void OnGetProductDetailRes(Product product, ArrayList<User> lstUserNeed, ArrayList<User> lstUserTransport) {
+
+    }
+
+    @Override
+    public void OnAddProduct(Product product) {
+
+    }
+
+    @Override
+    public void OnGetUserDetail(User user) {
+
+    }
 }

@@ -28,13 +28,17 @@ import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
 interface IOnServerResponse{
-    public void OnPostLoginRes(User user);
+    void OnPostLoginRes(User user);
 
-    public void OnPostRegisterRes(User user);
+    void OnPostRegisterRes(User user);
 
-    public void OnGetListProductsRes(ArrayList<Product> lstProds);
+    void OnGetListProductsRes(ArrayList<Product> lstProds);
 
-    public void OnGetProductDetailRes(Product prod);
+    void OnGetProductDetailRes(Product product, ArrayList<User> lstUserNeed, ArrayList<User> lstUserTransport);
+
+    void OnAddProduct(Product product);
+
+    void OnGetUserDetail(User user);
 }
 
 public class ServerHandler {
@@ -43,6 +47,8 @@ public class ServerHandler {
     public static final String REGISTER = "reg";
     public static final String LIST_PRODUCT = "lprod";
     public static final String PRODUCT_DETAIL = "prodde";
+    public static final String USER_DETAIL = "usrdetail";
+    public static final String ADD_PRODUCT = "addprod";
 
     private HttpClient httpClient;
     private HttpPost httpPost;
@@ -285,16 +291,7 @@ public class ServerHandler {
 
                 for (int i = 0; i < arr.size(); ++i) {
                     JsonObject jsonProd = arr.get(i).getAsJsonObject();
-                    Product product = new Product();
-                    product.setProductID(jsonProd.get("product_id").getAsInt());
-                    product.setProductName(jsonProd.get("product_name").getAsString());
-                    product.setProductPicture(jsonProd.get("picture1").getAsString());
-                    product.setDescription(jsonProd.get("description").getAsString());
-                    product.setQuantity(jsonProd.get("quantity").getAsInt());
-                    product.setUnit(jsonProd.get("unit").getAsString());
-                    product.setAddress(jsonProd.get("address").getAsString());
-                    product.setPrice(jsonProd.get("price").getAsString());
-
+                    Product product = Product.convertFromJsonObject(jsonProd);
                     listProduct.add(product);
                 }
 
@@ -307,7 +304,28 @@ public class ServerHandler {
         private void parseProductRes(String result) {
             try{
                 JsonObject obj = new JsonParser().parse(result).getAsJsonObject().get("data").getAsJsonObject();
-                JsonArray arr = obj.getAsJsonArray("lstProductOverview");
+
+                JsonObject jsonObject = obj.getAsJsonObject("productObject");
+                JsonArray jsonLstUserNeed = obj.getAsJsonArray("lstUserNeed");
+                JsonArray jsonLstUserTransport = obj.getAsJsonArray("lstUserTransport");
+
+                Product product = Product.convertFromJsonObject(jsonObject);
+
+                ArrayList<User> lstUserNeed = new ArrayList<>();
+                for (int i = 0; i < jsonLstUserNeed.size(); ++i) {
+                    JsonObject jsonUserNeed = jsonLstUserNeed.get(i).getAsJsonObject();
+                    User user = User.convertFromJsonObject(jsonUserNeed);
+                    lstUserNeed.add(user);
+                }
+
+                ArrayList<User> lstUserTransport = new ArrayList<>();
+                for (int i = 0; i < lstUserTransport.size(); ++i) {
+                    JsonObject jsonUserTransport = jsonLstUserTransport.get(i).getAsJsonObject();
+                    User user = User.convertFromJsonObject(jsonUserTransport);
+                    lstUserTransport.add(user);
+                }
+
+                iOnServerResponse.OnGetProductDetailRes(product,lstUserNeed,lstUserTransport);
 
             } catch (Exception e) {
                 Log.e("PARSING", e.getMessage());
