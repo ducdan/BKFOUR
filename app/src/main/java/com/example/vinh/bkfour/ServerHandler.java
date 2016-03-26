@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.HttpResponse;
 import cz.msebera.android.httpclient.client.HttpClient;
+import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
 import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
@@ -52,6 +53,7 @@ public class ServerHandler {
 
     private HttpClient httpClient;
     private HttpPost httpPost;
+    private HttpGet httpGet;
     private String result;
 
 
@@ -72,6 +74,19 @@ public class ServerHandler {
         return result;
 
     }*/
+
+    private void initHttpGet(JSONObject jsonObject) throws UnsupportedEncodingException {
+        // 4. convert JSONObject to JSON to String
+        String json = jsonObject.toString();
+
+        // 5. set json to StringEntity
+        StringEntity se = new StringEntity(json);
+
+
+        // 7. Set some headers to inform server about the type of the content
+        httpGet.setHeader("Accept", "application/json");
+        httpGet.setHeader("Content-type", "application/json");
+    }
 
     private void initHttpPost(JSONObject jsonObject) throws UnsupportedEncodingException {
         // 4. convert JSONObject to JSON to String
@@ -180,14 +195,14 @@ public class ServerHandler {
     public void getListProducts(int categoryID) {
         try {
             // 1. make POST request to the given URL
-            HttpPost httpPost = new HttpPost(Config.ServerDomain+Config.ListProduct);
+            HttpGet httpGet = new HttpGet(Config.ServerDomain+Config.ListProduct+"?category_id="+ String.valueOf(categoryID));
 
             // 2. build jsonObject
             JSONObject jsonObject = new JSONObject();
             jsonObject.accumulate("category_id", categoryID);
 
             // 3. Init
-            initHttpPost(jsonObject);
+            initHttpGet(jsonObject);
 
             // 4. Execute POST request to the given URL
             new HttpAsyncTask().execute(LIST_PRODUCT);
@@ -204,14 +219,14 @@ public class ServerHandler {
     public void getProductDetail(int productID) {
         try {
             // 1. make POST request to the given URL
-            HttpPost httpPost = new HttpPost(Config.ServerDomain+Config.ProductDetail);
+            HttpGet httpGet = new HttpGet(Config.ServerDomain+Config.ProductDetail+"?productID="+productID);
 
             // 2. build jsonObject
             JSONObject jsonObject = new JSONObject();
             jsonObject.accumulate("product_id", productID);
 
             // 3. Init
-            initHttpPost(jsonObject);
+            initHttpGet(jsonObject);
 
             // 4. Execute POST request to the given URL
             new HttpAsyncTask().execute(PRODUCT_DETAIL);
