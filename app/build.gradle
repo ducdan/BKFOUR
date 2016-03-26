@@ -25,4 +25,9 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
 
     compile 'com.google.code.gson:gson:2.4'
+
+    //compile 'org.apache.httpcomponents:httpclient:4.5.2'
+    //compile "org.apache.httpcomponents:httpmime:4.+"
+    //compile ('org.apache.httpcomponents:httpmime:4.3.5') { exclude group: 'org.apache.httpcomponents', module: 'httpclient' }
+    compile "cz.msebera.android:httpclient:4.4.1.1"
 }

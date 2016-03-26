@@ -18,6 +18,14 @@ public class User {
         this.avatar = avatar;
     }
 
+    public User(int userID) {
+        this.userID = userID;
+    }
+
+    public User() {
+
+    }
+
     private int userID;
     private String userName;
     private String password;
