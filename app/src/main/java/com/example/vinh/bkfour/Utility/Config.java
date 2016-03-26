@@ -4,7 +4,7 @@ package com.example.vinh.bkfour.Utility;
  * Created by VINH on 3/26/2016.
  */
 public class Config {
-    static String ServerIP = "http://192.168.173.1/";
+    static String ServerIP = "http://166.62.93.250/";
     static String API = "HuyAPI/";
 
     public static String Login = "user/login";
