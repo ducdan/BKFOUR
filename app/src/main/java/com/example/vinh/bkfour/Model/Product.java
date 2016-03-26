@@ -1,5 +1,10 @@
 package com.example.vinh.bkfour.Model;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by VINH on 3/26/2016.
  */
@@ -17,6 +22,10 @@ public class Product {
         this.isFinished = isFinished;
     }
 
+    public Product() {
+
+    }
+
     int productID;
     String productName;
     String productPicture;
@@ -25,6 +34,26 @@ public class Product {
     String description;
     int quantity;
     String unit;
+    String price = "free";
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    String address;
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     boolean isFinished;
 
 
@@ -100,4 +129,17 @@ public class Product {
         this.isFinished = isFinished;
     }
 
+    public static Product convertFromJsonObject(JsonObject jsonObject) {
+        Product product = new Product();
+        product.setProductID(jsonObject.get("product_id").getAsInt());
+        product.setProductName(jsonObject.get("product_name").getAsString());
+        product.setProductPicture(jsonObject.get("picture1").getAsString());
+        product.setDescription(jsonObject.get("description").getAsString());
+        product.setQuantity(jsonObject.get("quantity").getAsInt());
+        product.setUnit(jsonObject.get("unit").getAsString());
+        product.setAddress(jsonObject.get("address").getAsString());
+        product.setPrice(jsonObject.get("price").getAsString());
+
+        return product;
+    }
 }
