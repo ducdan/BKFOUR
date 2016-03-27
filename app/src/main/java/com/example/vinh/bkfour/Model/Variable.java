@@ -5,4 +5,6 @@ package com.example.vinh.bkfour.Model;
  */
 public class Variable {
     public static final String ITEM_POS="Position";
+    public static final String PRODUCTNAME="";
+    public static final String ;
 }

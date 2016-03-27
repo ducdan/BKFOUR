@@ -12,15 +12,19 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.vinh.bkfour.Model.Product;
-import com.example.vinh.bkfour.Model.User;
 import com.example.vinh.bkfour.Model.Variable;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by HoDucDan_51200482 on 3/26/2016.
  */
-public class ListItemActivity extends Activity implements IOnServerResponse{
+public class ListItemActivity extends Activity{
     String playlistID;
     private boolean isLoading;
     ListviewAdapter adapter;
@@ -55,45 +59,23 @@ public class ListItemActivity extends Activity implements IOnServerResponse{
             Measuredheight = d.getHeight();
         }
 
-        ServerHandler handler=new ServerHandler(this);
-        handler.getListProducts(2);
-
         lv = (ListView) findViewById(R.id.listview);
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
+        query.orderByDescending("createdAt");
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> objects, ParseException e) {
+                for(int i=0;i<objects.size();i++){
+                    ParseObject obj=objects.get(i);
+                    Product item=new Product();
+                    item.setProductName(Variable);
+                }
+            }
+        });
         adapter = new ListviewAdapter(getApplicationContext(), itemInfo,
                 Measuredwidth, Measuredheight);
         lv.setAdapter(adapter);
 
-
-    }
-
-    @Override
-    public void OnPostLoginRes(User user) {
-
-    }
-
-    @Override
-    public void OnPostRegisterRes(User user) {
-
-    }
-
-    @Override
-    public void OnGetListProductsRes(ArrayList<Product> lstProds) {
-        itemInfo.addAll(lstProds);
-        adapter.notifyDataSetChanged();
-    }
-
-    @Override
-    public void OnGetProductDetailRes(Product product, ArrayList<User> lstUserNeed, ArrayList<User> lstUserTransport) {
-
-    }
-
-    @Override
-    public void OnAddProduct(Product product) {
-
-    }
-
-    @Override
-    public void OnGetUserDetail(User user) {
 
     }
 }
