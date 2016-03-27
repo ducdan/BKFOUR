@@ -1,6 +1,7 @@
 package com.example.vinh.bkfour;
 
 
+import com.example.vinh.bkfour.Model.Product;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -14,6 +15,7 @@ import android.app.FragmentTransaction;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,14 +31,24 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.sql.DatabaseMetaData;
 
 /**
  * Created by danhk on 26-Mar-16.
  */
-public class ProductDetailFragment extends android.support.v4.app.Fragment implements OnMapReadyCallback,GoogleMap.OnMapLoadedCallback {
+public class ProductDetailActivity extends AppCompatActivity implements OnMapReadyCallback,GoogleMap.OnMapLoadedCallback {
     GoogleMap googleMap;
     Button btnContact;
     TextView txtName,txtDescription,txtAddress,txtQuantity,txtUnit;
+    Product product;
+    public void setProduct(Product product){
+        this.product = product;
+        txtName.setText(product.getProductName());
+        txtDescription.setText(product.getDescription());
+        txtQuantity.setText(product.getQuantity());
+        txtUnit.setText(product.getUnit());
+
+    }
 
     void test(){
         txtAddress.setText("268 No Trang Long, Binh Thanh Dict, HCM City");
@@ -44,40 +56,27 @@ public class ProductDetailFragment extends android.support.v4.app.Fragment imple
         txtDescription.setText("Old bike for children");
         txtQuantity.setText("1");
         txtUnit.setText("vihicle");
-
     }
-    @Override
 
-    public View onCreateView(LayoutInflater inflater,  ViewGroup container, Bundle savedInstanceState) {
-        View v = null;
-        v = inflater.inflate(R.layout.product_detail, container,false);
-        btnContact = (Button) v.findViewById(R.id.btnContact);
-        txtName = (TextView) v.findViewById(R.id.txtViewName);
-        txtDescription = (TextView) v.findViewById(R.id.txtDescription);
-        txtAddress = (TextView) v.findViewById(R.id.txtAddress);
-        txtQuantity = (TextView) v.findViewById(R.id.txtQuantity);
-        txtUnit = (TextView) v.findViewById(R.id.txtUnit);
-        txtAddress.setVisibility(View.INVISIBLE);
-        test();
-        return v;
-
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.product_detail);
+        btnContact = (Button) findViewById(R.id.btnContact);
+        txtName = (TextView) findViewById(R.id.txtViewName);
+        txtDescription = (TextView) findViewById(R.id.txtDescription);
+        txtAddress = (TextView) findViewById(R.id.txtAddress);
+        txtQuantity = (TextView) findViewById(R.id.txtQuantity);
+        txtUnit = (TextView) findViewById(R.id.txtUnit);
+        txtAddress.setVisibility(View.INVISIBLE);
         MapFragment mapfg = new MapFragment();
         mapfg.getMapAsync(this);
-        FragmentManager fm = getActivity().getFragmentManager();
+        FragmentManager fm = getFragmentManager();
         FragmentTransaction ft = fm.beginTransaction();
-
-        //
         ft.replace(R.id.mapLayout, mapfg);
-
-        //
         ft.commit();
 
-        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -87,9 +86,10 @@ public class ProductDetailFragment extends android.support.v4.app.Fragment imple
     }
     @Override
     public void onMapLoaded() {
-        googleMap.addMarker(new MarkerOptions().position(new LatLng(10.408705, 106.140274)).title("Mái ấm xxx"));
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(new LatLng(10.408705, 106.140274));
-        googleMap.animateCamera(cameraUpdate);
+
+        //googleMap.addMarker(new MarkerOptions().position(new LatLng(product.getLatitude(), product.getLongitude())).title(product.getAddress()));
+       // CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(new LatLng(product.getLatitude(), product.getLongitude()));
+      //  googleMap.animateCamera(cameraUpdate);
     }
 
 
