@@ -4,6 +4,8 @@ package com.example.vinh.bkfour;
 import com.example.vinh.bkfour.Model.Product;
 import com.example.vinh.bkfour.Model.Variable;
 import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
 import com.parse.ParseUser;
 /*
 import com.google.android.gms.maps.CameraUpdate;
@@ -25,6 +27,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -46,6 +49,7 @@ public class ProductDetailActivity extends AppCompatActivity  {
     Button btnContact;
     TextView txtName,txtDescription,txtAddress,txtQuantity,txtUnit,txtPrice;
     Product product;
+    ImageView picture;
     public void setProduct(Product product){
         this.product = product;
         txtName.setText(product.getProductName());
@@ -70,7 +74,7 @@ public class ProductDetailActivity extends AppCompatActivity  {
         txtUnit = (TextView) findViewById(R.id.txtUnit);
         txtAddress.setVisibility(View.INVISIBLE);
         txtPrice = (TextView) findViewById(R.id.txtPrice);
-
+        picture  = (ImageView) findViewById(R.id.pictureImageView);
 
 
         Bundle bun = getIntent().getExtras();
@@ -79,7 +83,12 @@ public class ProductDetailActivity extends AppCompatActivity  {
        product = gson.fromJson(data, Product.class);
 
 
-
+        ImageLoader imageLoader = ImageLoader.getInstance();
+        DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
+                .cacheOnDisc(true).resetViewBeforeLoading(true)
+                .showImageOnLoading(R.drawable.ic_loading)
+                .build();
+        imageLoader.displayImage(product.getProductPicture(), picture, options);
 
         txtName.setText(product.getProductName());
         txtDescription.setText(product.getDescription());
