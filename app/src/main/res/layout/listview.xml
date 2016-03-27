@@ -6,7 +6,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="40dp" >
 
         <TextView
             android:id="@+id/title_3"
@@ -23,12 +23,23 @@
     </FrameLayout>
 
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
-
+        <TextView
+            android:id="@+id/txt_no"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="No data to show"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:visibility="gone"/>
+        <ProgressBar
+            android:id="@+id/pro1"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content" />
         <ListView
             android:id="@+id/listview"
             android:layout_width="fill_parent"

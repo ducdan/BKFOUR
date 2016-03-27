@@ -2,7 +2,6 @@ package com.example.vinh.bkfour;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -12,10 +11,10 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.example.vinh.bkfour.Model.Product;
 import com.example.vinh.bkfour.Model.Variable;
-import com.google.gson.Gson;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -65,7 +64,7 @@ public class ListItemActivity extends Activity {
         lv = (ListView) findViewById(R.id.listview);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
         query.orderByDescending("createdAt");
-        query.whereEqualTo(Variable.CATEGORY_NAME,pos);
+        query.whereEqualTo(Variable.CATEGORY_NAME, pos);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
@@ -73,16 +72,22 @@ public class ListItemActivity extends Activity {
                     ParseObject obj = objects.get(i);
                     Product item = new Product();
                     item.setProductName(obj.getString(Variable.PRODUC_TNAME));
-                   // item.setProductName(obj.getString(Variable.LONG_LOCATION));
+                    // item.setProductName(obj.getString(Variable.LONG_LOCATION));
                     //item.setProductName(obj.getString(Variable.LAT_LOCATION));
                     item.setDescription(obj.getString(Variable.DESCRIPTION));
                     item.setQuantity(obj.getString(Variable.QUANTITY));
                     //item.setProductName(obj.getString(Variable.UNIT));
                     item.setAddress(obj.getString(Variable.ADDRESS));
                     item.setPrice(obj.getString(Variable.COST));
-                    item.phone=(obj.getString(Variable.TELEPHONE));
+                    item.phone = (obj.getString(Variable.TELEPHONE));
                     //item.setProductName(obj.getString(Variable.PICTURE));
                     itemInfo.add(item);
+                }
+                ProgressBar pro = (ProgressBar) findViewById(R.id.pro1);
+                pro.setVisibility(View.GONE);
+                if (itemInfo.size() == 0) {
+                    TextView txt=(TextView)findViewById(R.id.txt_no);
+                    txt.setVisibility(View.VISIBLE);
                 }
                 adapter = new ListviewAdapter(getApplicationContext(), itemInfo,
                         Measuredwidth, Measuredheight);
@@ -92,11 +97,11 @@ public class ListItemActivity extends Activity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Gson gson = new Gson();
-                String value = gson.toJson(itemInfo.get(position));
-                 Intent intent=new Intent(ListItemActivity.this,ProductDetailActivity.class);
-                 intent.putExtra(Variable.ITEM_DATA,value);
-                startActivity(intent);
+//                Gson gson = new Gson();
+//                String value = gson.toJson(itemInfo.get(position));
+//                 Intent intent=new Intent(ListItemActivity.this,ProductDetailActivity.class);
+//                 intent.putExtra(Variable.ITEM_DATA,value);
+//                startActivity(intent);
             }
         });
     }
