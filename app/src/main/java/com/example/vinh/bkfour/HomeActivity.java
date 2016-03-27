@@ -81,36 +81,10 @@ public class HomeActivity extends Activity {
                 @Override
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
-                    switch (position) {
-                        case 0:
-                        case 1:
-                        case 2:
-                        case 3:
-                        case 4:
-                        case 5:
-                        {
-                            Intent intent = new Intent(HomeActivity.this,
-                                    ListItemActivity.class);
-                            intent.putExtra(Variable.ITEM_POS, contentString[position]);
-                            startActivityForResult(intent, 0);
-                            break;
-                        }
-                        case 8: {
-                            Intent intent = new Intent(HomeActivity.this,
-                                    LoginActivity.class);
-                            intent.putExtra(Variable.ITEM_POS, contentString[position]);
-                            startActivityForResult(intent, 0);
-                            break;
-                        }
-                        case 9: {
-                            Intent intent = new Intent(HomeActivity.this,
-                                    LoginActivity.class);
-                            startActivityForResult(intent, 0);
-                            break;
-                        }
-                        default:
-                            break;
-                    }
+                    Intent intent = new Intent(HomeActivity.this,
+                            ListItemActivity.class);
+                    intent.putExtra(Variable.ITEM_POS, contentString[position]);
+                    startActivityForResult(intent, 0);
                 }
             });
             return myView;
@@ -126,7 +100,7 @@ public class HomeActivity extends Activity {
                 R.drawable.ic_imterview, R.drawable.ic_shaw,
                 R.drawable.ic_effortless, R.drawable.ic_pronuncation,
                 R.drawable.ic_grammar, R.drawable.ic_favourite,
-              };
+        };
         public String[] colors = {"#47C7F1", "#FFB600", "#8A48B7", "#2DA630",
                 "#FF6600", "#2563C1", "#FFB600", "#C28532", "#2563C1",
                 "#47C7F1"};
