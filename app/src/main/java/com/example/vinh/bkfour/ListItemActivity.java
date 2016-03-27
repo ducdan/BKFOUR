@@ -2,17 +2,20 @@ package com.example.vinh.bkfour;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
 import com.example.vinh.bkfour.Model.Product;
 import com.example.vinh.bkfour.Model.Variable;
+import com.google.gson.Gson;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -45,7 +48,7 @@ public class ListItemActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listview);
         Bundle bundle=getIntent().getExtras();
-        int pos=bundle.getInt(Variable.ITEM_POS);
+        String pos=bundle.getString(Variable.ITEM_POS);
         Point size = new Point();
         WindowManager w = getWindowManager();
 
@@ -62,20 +65,39 @@ public class ListItemActivity extends Activity{
         lv = (ListView) findViewById(R.id.listview);
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Product");
         query.orderByDescending("createdAt");
+        query.whereEqualTo(Variable.CATEGORY_NAME,pos);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> objects, ParseException e) {
-                for(int i=0;i<objects.size();i++){
-                    ParseObject obj=objects.get(i);
-                    Product item=new Product();
-                    item.setProductName(Variable);
+                for (int i = 0; i < objects.size(); i++) {
+                    ParseObject obj = objects.get(i);
+                    Product item = new Product();
+                    item.setProductName(obj.getString(Variable.PRODUC_TNAME));
+                    item.setProductName(obj.getString(Variable.LONG_LOCATION));
+                    item.setProductName(obj.getString(Variable.LAT_LOCATION));
+                    item.setProductName(obj.getString(Variable.DESCRIPTION));
+                    item.setProductName(obj.getString(Variable.QUANTITY));
+                    item.setProductName(obj.getString(Variable.UNIT));
+                    item.setProductName(obj.getString(Variable.ADDRESS));
+                    item.setProductName(obj.getString(Variable.TELEPHONE));
+                    item.setProductName(obj.getString(Variable.PICTURE));
+                    item.setProductName(obj.getString(Variable.COST));
+
                 }
+                adapter = new ListviewAdapter(getApplicationContext(), itemInfo,
+                        Measuredwidth, Measuredheight);
+                lv.setAdapter(adapter);
             }
         });
-        adapter = new ListviewAdapter(getApplicationContext(), itemInfo,
-                Measuredwidth, Measuredheight);
-        lv.setAdapter(adapter);
-
-
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Gson gson = new Gson();
+                String value = gson.toJson(itemInfo.get(position));
+                Intent intent=new Intent(ListItemActivity.this,ProductDetailActivity.class);
+                intent.putExtra(Variable.ITEM_POS,value);
+                startActivity(intent);
+            }
+        });
     }
 }

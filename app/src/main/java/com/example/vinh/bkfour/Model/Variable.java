@@ -22,6 +22,6 @@ public class Variable {
     public static final String N_TRANSPORTATION = "nTransportation";
     public static final String N_CONTRIBUTION = "nContribution";
 
-
+    public static final String COST = "Cost";
 
 }

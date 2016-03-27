@@ -82,58 +82,9 @@ public class HomeActivity extends Activity {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     switch (position) {
-                        case 0: {
+                        case 0-7: {
                             Intent intent = new Intent(HomeActivity.this,
                                     ListItemActivity.class);
-                            intent.putExtra(Variable.ITEM_POS, position);
-                            startActivityForResult(intent, 0);
-                            break;
-                        }
-                        case 1: {
-                            Intent intent = new Intent(HomeActivity.this,
-                                    LoginActivity.class);
-                            intent.putExtra(Variable.ITEM_POS, contentString[position]);
-                            startActivityForResult(intent, 0);
-                            break;
-                        }
-                        case 2: {
-                            Intent intent = new Intent(HomeActivity.this,
-                                    ListItemActivity.class);
-                            intent.putExtra(Variable.ITEM_POS, position);
-                            startActivityForResult(intent, 0);
-                            break;
-                        }
-                        case 3: {
-                            Intent intent = new Intent(HomeActivity.this,
-                                    LoginActivity.class);
-                            intent.putExtra(Variable.ITEM_POS, contentString[position]);
-                            startActivityForResult(intent, 0);
-                            break;
-                        }
-                        case 4: {
-                            Intent intent = new Intent(HomeActivity.this,
-                                    LoginActivity.class);
-                            intent.putExtra(Variable.ITEM_POS, contentString[position]);
-                            startActivityForResult(intent, 0);
-                            break;
-                        }
-                        case 5: {
-                            Intent intent = new Intent(HomeActivity.this,
-                                    LoginActivity.class);
-                            intent.putExtra(Variable.ITEM_POS, contentString[position]);
-                            startActivityForResult(intent, 0);
-                            break;
-                        }
-                        case 6: {
-                            Intent intent = new Intent(HomeActivity.this,
-                                    LoginActivity.class);
-                            intent.putExtra(Variable.ITEM_POS, contentString[position]);
-                            startActivityForResult(intent, 0);
-                            break;
-                        }
-                        case 7: {
-                            Intent intent = new Intent(HomeActivity.this,
-                                    LoginActivity.class);
                             intent.putExtra(Variable.ITEM_POS, contentString[position]);
                             startActivityForResult(intent, 0);
                             break;
