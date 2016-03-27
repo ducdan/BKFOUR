@@ -42,7 +42,7 @@
                     android:drawableLeft="@drawable/ic_user"
                     android:drawableTint="#FF4081"
                     android:singleLine="true"
-                    android:hint="Enter user Name"
+                    android:hint="Enter Email"
                     android:inputType="textEmailAddress" />
             </android.support.design.widget.TextInputLayout>
             <Button

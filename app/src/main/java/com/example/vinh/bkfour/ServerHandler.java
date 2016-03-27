@@ -8,22 +8,17 @@ import com.example.vinh.bkfour.Model.Product;
 import com.example.vinh.bkfour.Model.User;
 import com.example.vinh.bkfour.Utility.Config;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import java.util.List;
 
 import cz.msebera.android.httpclient.HttpResponse;
-import cz.msebera.android.httpclient.NameValuePair;
 import cz.msebera.android.httpclient.client.HttpClient;
 import cz.msebera.android.httpclient.client.methods.HttpGet;
 import cz.msebera.android.httpclient.client.methods.HttpPost;
@@ -32,7 +27,6 @@ import cz.msebera.android.httpclient.entity.StringEntity;
 import cz.msebera.android.httpclient.entity.mime.MIME;
 import cz.msebera.android.httpclient.entity.mime.MultipartEntityBuilder;
 import cz.msebera.android.httpclient.impl.client.DefaultHttpClient;
-import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.protocol.HTTP;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
