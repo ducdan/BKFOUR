@@ -95,7 +95,7 @@ public class ListItemActivity extends Activity{
                 Gson gson = new Gson();
                 String value = gson.toJson(itemInfo.get(position));
                 Intent intent=new Intent(ListItemActivity.this,ProductDetailActivity.class);
-                intent.putExtra(Variable.ITEM_POS,value);
+                intent.putExtra(Variable.ITEM_DATA,value);
                 startActivity(intent);
             }
         });

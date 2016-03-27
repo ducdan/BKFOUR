@@ -23,5 +23,6 @@ public class Variable {
     public static final String N_CONTRIBUTION = "nContribution";
 
     public static final String COST = "Cost";
+    public static final String ITEM_DATA = "Item_data";
 
 }
