@@ -2,6 +2,7 @@ package com.example.vinh.bkfour;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.example.vinh.bkfour.Model.Product;
 import com.example.vinh.bkfour.Model.Variable;
+import com.google.gson.Gson;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -72,6 +74,7 @@ public class ListItemActivity extends Activity {
                     ParseObject obj = objects.get(i);
                     Product item = new Product();
                     item.setProductName(obj.getString(Variable.PRODUC_TNAME));
+                    item.setProductPicture(obj.getString(Variable.PICTURE));
                     // item.setProductName(obj.getString(Variable.LONG_LOCATION));
                     //item.setProductName(obj.getString(Variable.LAT_LOCATION));
                     item.setDescription(obj.getString(Variable.DESCRIPTION));
@@ -97,11 +100,11 @@ public class ListItemActivity extends Activity {
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Gson gson = new Gson();
-//                String value = gson.toJson(itemInfo.get(position));
-//                 Intent intent=new Intent(ListItemActivity.this,ProductDetailActivity.class);
-//                 intent.putExtra(Variable.ITEM_DATA,value);
-//                startActivity(intent);
+                Gson gson = new Gson();
+                String value = gson.toJson(itemInfo.get(position));
+                 Intent intent=new Intent(ListItemActivity.this,ProductDetailActivity.class);
+                 intent.putExtra(Variable.ITEM_DATA,value);
+                startActivity(intent);
             }
         });
     }

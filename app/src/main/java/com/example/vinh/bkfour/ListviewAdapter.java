@@ -71,7 +71,7 @@ public class ListviewAdapter extends BaseAdapter {
                 .cacheOnDisc(true).resetViewBeforeLoading(true)
                 .showImageOnLoading(R.drawable.ic_loading)
                 .build();
-        imageLoader.displayImage("http://166.62.93.250/HuyAPI/Picture/SGK_tieng_viet_1.jpg", image, options);
+        imageLoader.displayImage(item.getProductPicture(), image, options);
         holder.cost.setText(item.getPrice());
         holder.txt_itemName.setText(item.getProductName());
         holder.des.setText(item.getDescription());
