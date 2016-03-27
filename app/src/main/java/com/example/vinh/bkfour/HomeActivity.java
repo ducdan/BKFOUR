@@ -91,19 +91,16 @@ public class HomeActivity extends Activity {
         }
 
         public String[] contentString = {"Food",
-                "Book", "Health Aid", "Electronic device",
-                "Sport Equipment", "Clothes",
-                "Vehicle", "Others", "Contact Us",
-                "Setting"};
+                "Book", "Vehicle", "Electronic device",
+                "Sport Equipment", "Health Aid",
+                "Clothes", "Others"};
         public Integer[] mThumbs = {R.drawable.ic_communnicate,
                 R.drawable.ic_child, R.drawable.ic_toeic, R.drawable.ic_ielts,
                 R.drawable.ic_imterview, R.drawable.ic_shaw,
                 R.drawable.ic_effortless, R.drawable.ic_pronuncation,
-                R.drawable.ic_grammar, R.drawable.ic_favourite,
         };
         public String[] colors = {"#47C7F1", "#FFB600", "#8A48B7", "#2DA630",
-                "#FF6600", "#2563C1", "#FFB600", "#C28532", "#2563C1",
-                "#47C7F1"};
+                "#FF6600", "#2563C1", "#FFB600", "#C28532"};
     }
 
     boolean exit = false;
@@ -116,7 +113,7 @@ public class HomeActivity extends Activity {
         }
         this.exit = true;
         Toast.makeText(getApplicationContext(),
-                "Nhấn back thêm lần nữa để thoát", Toast.LENGTH_SHORT).show();
+                "Press back 2 times to quit", Toast.LENGTH_SHORT).show();
         new Handler().postDelayed(new Runnable() {
 
             @Override

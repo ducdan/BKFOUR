@@ -66,7 +66,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:orientation="horizontal"
             android:padding="2dp">
 
@@ -74,25 +74,29 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="10dp"
-                android:text="Address : "
+                android:text="Contact : "
                 android:textColor="#0099cc"
                 android:textSize="20dp" />
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
             <Button
                 android:id="@+id/btnContact"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Contact"></Button>
 
             <TextView
                 android:id="@+id/txtAddress"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:text=" 1 street, dictric, city"
 
                 android:textColor="#0099cc"
                 android:textSize="20dp" />
-
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout

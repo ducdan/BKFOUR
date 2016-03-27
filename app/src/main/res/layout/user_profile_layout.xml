@@ -92,7 +92,7 @@
             android:textSize="20dp" />
 
         <TextView
-            android:id="@+id/txtAddress"
+            android:id="@+id/txtAddress2"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

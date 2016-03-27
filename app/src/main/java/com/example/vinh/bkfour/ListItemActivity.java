@@ -79,7 +79,7 @@ public class ListItemActivity extends Activity {
                     //item.setProductName(obj.getString(Variable.LAT_LOCATION));
                     item.setDescription(obj.getString(Variable.DESCRIPTION));
                     item.setQuantity(obj.getString(Variable.QUANTITY));
-                    //item.setProductName(obj.getString(Variable.UNIT));
+                    item.setUnit(obj.getString(Variable.UNIT));
                     item.setAddress(obj.getString(Variable.ADDRESS));
                     item.setPrice(obj.getString(Variable.COST));
                     item.phone = (obj.getString(Variable.TELEPHONE));
