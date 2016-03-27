@@ -2,15 +2,12 @@ package com.example.vinh.bkfour.Model;
 
 import com.google.gson.JsonObject;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
  * Created by VINH on 3/26/2016.
  */
 public class Product {
 
-    public Product(int productID, String productName, String productPicture, float longitude, float latitude, String description, int quantity, String unit, boolean isFinished) {
+    public Product(int productID, String productName, String productPicture, float longitude, float latitude, String description, String quantity, String unit, boolean isFinished) {
         this.productID = productID;
         this.productName = productName;
         this.productPicture = productPicture;
@@ -25,17 +22,16 @@ public class Product {
     public Product() {
 
     }
-
     int productID;
     String productName;
     String productPicture;
     float longitude;
     float latitude;
     String description;
-    int quantity;
+    String quantity;
     String unit;
     String price = "free";
-
+    public String phone;
     public String getAddress() {
         return address;
     }
@@ -105,11 +101,11 @@ public class Product {
         this.description = description;
     }
 
-    public int getQuantity() {
+    public String getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
 
@@ -135,7 +131,7 @@ public class Product {
         product.setProductName(jsonObject.get("product_name").getAsString());
         product.setProductPicture(jsonObject.get("picture1").getAsString());
         product.setDescription(jsonObject.get("description").getAsString());
-        product.setQuantity(jsonObject.get("quantity").getAsInt());
+       // product.setQuantity(jsonObject.get("quantity").getAsInt());
         product.setUnit(jsonObject.get("unit").getAsString());
         product.setAddress(jsonObject.get("address").getAsString());
         product.setPrice(jsonObject.get("price").getAsString());

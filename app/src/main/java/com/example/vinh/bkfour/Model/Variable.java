@@ -10,7 +10,7 @@ public class Variable {
     public static final String LONG_LOCATION = "LongLocation";
     public static final String LAT_LOCATION = "LatLocation";
     public static final String CREATED_DATE_TIME = "CreatedDateTime";
-    public static final String DESCRIPTION = "Descriptoion";
+    public static final String DESCRIPTION = "Description";
     public static final String QUANTITY = "Quantity";
     public static final String UNIT = "Unit";
     public static final String CATEGORY_NAME = "CategoryName";

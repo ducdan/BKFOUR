@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * Created by HoDucDan_51200482 on 3/26/2016.
  */
-public class ListItemActivity extends Activity{
+public class ListItemActivity extends Activity {
     String playlistID;
     private boolean isLoading;
     ListviewAdapter adapter;
@@ -47,8 +47,8 @@ public class ListItemActivity extends Activity{
         // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         setContentView(R.layout.listview);
-        Bundle bundle=getIntent().getExtras();
-        String pos=bundle.getString(Variable.ITEM_POS);
+        Bundle bundle = getIntent().getExtras();
+        String pos = bundle.getString(Variable.ITEM_POS);
         Point size = new Point();
         WindowManager w = getWindowManager();
 
@@ -73,16 +73,16 @@ public class ListItemActivity extends Activity{
                     ParseObject obj = objects.get(i);
                     Product item = new Product();
                     item.setProductName(obj.getString(Variable.PRODUC_TNAME));
-                    item.setProductName(obj.getString(Variable.LONG_LOCATION));
-                    item.setProductName(obj.getString(Variable.LAT_LOCATION));
-                    item.setProductName(obj.getString(Variable.DESCRIPTION));
-                    item.setProductName(obj.getString(Variable.QUANTITY));
-                    item.setProductName(obj.getString(Variable.UNIT));
-                    item.setProductName(obj.getString(Variable.ADDRESS));
-                    item.setProductName(obj.getString(Variable.TELEPHONE));
-                    item.setProductName(obj.getString(Variable.PICTURE));
-                    item.setProductName(obj.getString(Variable.COST));
-
+                   // item.setProductName(obj.getString(Variable.LONG_LOCATION));
+                    //item.setProductName(obj.getString(Variable.LAT_LOCATION));
+                    item.setDescription(obj.getString(Variable.DESCRIPTION));
+                    item.setQuantity(obj.getString(Variable.QUANTITY));
+                    //item.setProductName(obj.getString(Variable.UNIT));
+                    item.setAddress(obj.getString(Variable.ADDRESS));
+                    item.setPrice(obj.getString(Variable.COST));
+                    item.phone=(obj.getString(Variable.TELEPHONE));
+                    //item.setProductName(obj.getString(Variable.PICTURE));
+                    itemInfo.add(item);
                 }
                 adapter = new ListviewAdapter(getApplicationContext(), itemInfo,
                         Measuredwidth, Measuredheight);
@@ -94,8 +94,8 @@ public class ListItemActivity extends Activity{
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Gson gson = new Gson();
                 String value = gson.toJson(itemInfo.get(position));
-                Intent intent=new Intent(ListItemActivity.this,ProductDetailActivity.class);
-                intent.putExtra(Variable.ITEM_DATA,value);
+                 Intent intent=new Intent(ListItemActivity.this,ProductDetailActivity.class);
+                 intent.putExtra(Variable.ITEM_DATA,value);
                 startActivity(intent);
             }
         });

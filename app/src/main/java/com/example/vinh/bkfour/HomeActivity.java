@@ -82,7 +82,13 @@ public class HomeActivity extends Activity {
                 public void onClick(View v) {
                     // TODO Auto-generated method stub
                     switch (position) {
-                        case 0-7: {
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 4:
+                        case 5:
+                        {
                             Intent intent = new Intent(HomeActivity.this,
                                     ListItemActivity.class);
                             intent.putExtra(Variable.ITEM_POS, contentString[position]);
